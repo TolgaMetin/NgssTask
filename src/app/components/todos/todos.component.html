@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <h1>Todos</h1>
+  <button mat-button (click)="logOut()">Log Out</button> 
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-end"> </div>
+      <div class="card">
+        <div class="card-body">
+          <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="assignee">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Assignee </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.userName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.completed ? 'InProgress':'Done'  }} </mat-cell>
+            </ng-container>
+
+            <!-- Actions -->
+            <ng-container matColumnDef="actions" >
+              <mat-header-cell *matHeaderCellDef class="td-actions">
+                Actions
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class=" td-actions">
+                <a mat-raised-button type="button" class="btn btn-primary btn-link" (click)="editTodo(row)">
+                  <i class="material-icons">edit</i>
+                </a>
+                <a mat-raised-button type="button" class="btn btn-danger btn-link" (click)="deleteTodo(row)">
+                  <i class="material-icons">delete</i>
+                </a>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns" style="justify-content: start"></mat-row>
+          </mat-table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
